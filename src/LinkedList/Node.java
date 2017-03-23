@@ -1,6 +1,8 @@
+package LinkedList;
+
 public class Node {
 		private Object nodeObj;
-		private Node nextNode;		
+		private Node nextNode;
 		
 		public Node(Object nodeObj, Node nextNode)
 		{
@@ -8,10 +10,10 @@ public class Node {
 			this.nextNode = nextNode;
 		}
 		
-		public void setNodeObj (Object nodeObj)
+		/*public void setNodeObj (Object nodeObj)
 		{
 			this.nodeObj = nodeObj;
-		}
+		}*/
 		
 		public void setNextNode (Node nextNode)
 		{
@@ -27,4 +29,5 @@ public class Node {
 		{
 			return this.nextNode;
 		}
+		
 }

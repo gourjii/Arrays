@@ -1,8 +1,13 @@
-public class LinkedList{
+package LinkedList;
 
-	//private Node firstNode = new Node()
+import HashSet.HashSet;
+import java.util.Iterator;
+
+public class LinkedList {//implements Iterable{ // https://docs.oracle.com/javase/8/docs/api/java/lang/Iterable.html
+
 	private Node firstNode;
 	private int size = 0;
+	private int hash = 0; // created only for first ever element and used only in HashSet
 
 	public boolean add(Object T)
 	{
@@ -10,6 +15,7 @@ public class LinkedList{
 		{
 			this.firstNode = new Node(T, null);
 			this.size = 1;
+			this.hash = T.hashCode();
 			return true;
 		}
 		else
@@ -32,14 +38,8 @@ public class LinkedList{
 	
 	public boolean contains(Object T)
 	{
-		if (this.firstNode == null)
-		{
-			return false;
-		}
-		else if (this.firstNode.getNodeObj().equals(T))
-		{
-			return true;
-		}
+		if (this.firstNode == null) {return false;}
+		else if (this.firstNode.getNodeObj().equals(T)) {return true;}
 		else
 		{
 			Node currentNode = firstNode;
@@ -47,10 +47,7 @@ public class LinkedList{
 			{
 				currentNode = currentNode.getNextNode();
 				//System.out.println(currentNode.getNodeObj());
-				if (currentNode.getNodeObj().equals(T))
-				{
-					return true;
-				}
+				if (currentNode.getNodeObj().equals(T)) {return true;}
 			}
 			return false;
 		}
@@ -85,7 +82,21 @@ public class LinkedList{
 	}
 	//	 Адвансед задание: сделать LinkedList Iterable.
 	
-	 public static void main(String[] args) {
+
+	/*public Iterator iterator()
+	{
+		Iterator a = new Iterator();
+		return a;
+	}*/
+	
+	public int getHash()
+	{
+		return this.hash;
+	}
+	
+	
+	
+	public static void main(String[] args) {
 		 
 		 LinkedList l = new LinkedList(); 
 		 l.add("obj1");
@@ -98,6 +109,17 @@ public class LinkedList{
 		 System.out.println("removing " + l.remove(1));
 		 System.out.println("False should be " + l.contains("obj3"));
 		 System.out.println("new size is " + l.size);
+		 System.out.println("---------HashSet--------");
+		 System.out.println(l.hash);
+		 HashSet hashSet = new HashSet();
+		 hashSet.add("hash1");
+		 hashSet.add("hash2");
+		 hashSet.add("hash3");
+		 hashSet.add("hash4");
+		 System.out.println("---");
+		 System.out.println(hashSet.add("hash2"));
+		 l = (LinkedList) hashSet.firstListNode.getNodeObj();
+		 System.out.println(l.get(0));
 	 }
 	 
 }
