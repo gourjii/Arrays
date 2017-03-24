@@ -103,21 +103,21 @@ public class LinkedList {//implements Iterable{ // https://docs.oracle.com/javas
 		 l.add("obj2");
 		 l.add("obj3");
 		 l.add("obj4");
+		 
 		 System.out.println("size is " + l.size);
 		 System.out.println(l.get(3));
-		 System.out.println("True should be " + l.contains("obj3"));
+		 System.out.println("True is " + l.contains("obj3"));
 		 System.out.println("removing " + l.remove(1));
-		 System.out.println("False should be " + l.contains("obj3"));
+		 System.out.println("False is " + l.contains("obj3"));
 		 System.out.println("new size is " + l.size);
+		 
 		 System.out.println("---------HashSet--------");
-		 System.out.println(l.hash);
 		 HashSet hashSet = new HashSet();
 		 hashSet.add("hash1");
 		 hashSet.add("hash2");
 		 hashSet.add("hash3");
 		 hashSet.add("hash4");
-		 System.out.println("---");
-		 System.out.println(hashSet.add("hash2"));
+		 System.out.println("False is " + hashSet.add("hash2"));
 		 l = (LinkedList) hashSet.firstListNode.getNodeObj();
 		 System.out.println(l.get(0));
 	 }
