@@ -1,65 +1,49 @@
-package HashSet;
+package hashSet;
 
-import LinkedList.LinkedList;
-import LinkedList.Node;
+import java.util.NoSuchElementException;
+
+//import linkedList.LinkedList;
 
 public class HashSet {
 
-	public Node firstListNode; //update to private after testing
-		
-	private int getListNodeHash (Node a)
-	{
-		LinkedList b = (LinkedList) a.getNodeObj();
-		return b.getHash();
-	}
+	private final int hashTabSize = 1000;
+	private LinkedListHashable[] hashTab = new LinkedListHashable[hashTabSize];
 	
 	public boolean add(Object T)
 	{
-		LinkedList currentList = new LinkedList();
-		Node currentListNode;
-		int currentHash = T.hashCode();
-		
-		if (this.firstListNode == null)
-		{
-			currentList.add(T);
-			firstListNode = new Node(currentList, null);
+		int objBucket = T.hashCode()%hashTabSize;
+		if (this.hashTab[objBucket] == null) //bucket is empty
+			{
+			this.hashTab[objBucket] = new LinkedListHashable();
+			this.hashTab[objBucket].add(T);
 			return true;
-		}
-		else if (getListNodeHash(firstListNode) == currentHash)
-		{
-			// hash matches: check and Add new element 
-			currentList =  (LinkedList) firstListNode.getNodeObj();
-			if (currentList.contains(T)) {return false;}
-			else
-			{
-				currentList.add(T);
-				return true;
 			}
-		}
-
-		currentListNode = firstListNode;
-		while (currentListNode.getNextNode() != null)
-		{
-			currentListNode = currentListNode.getNextNode();
-			if (getListNodeHash(currentListNode) == currentHash)
-			{
-				// hash matches: check and Add new element
-				currentList =  (LinkedList) currentListNode.getNodeObj();
-				if (currentList.contains(T)) {return false;}
-				else
-				{
-					currentList.add(T);
-					return true;
-				}
-			}
-		}
-		//Nothing matched, adding new Node with list to the beginning
-		currentList = new LinkedList();
-		currentList.add(T);
-		firstListNode = new Node(currentList, firstListNode);
+		else if (this.hashTab[objBucket].contains(T)) // obj is in the bucket
+			{return false;}
+		
+		this.hashTab[objBucket].add(T); //obj is not in the bucket
 		return true;
 	}
-//		boolean contains(T object);
-//		T remove(T object);
+
+	public boolean contains(Object T)
+	{
+		int objBucket = T.hashCode()%this.hashTabSize;
+		if (this.hashTab[objBucket] == null) {return false;} //bucket is empty
+		else if (this.hashTab[objBucket].contains(T)) 
+			{return true;} // obj is in the bucket
+		return false; //obj is not in the bucket
+	}
+
+	public boolean remove(Object T)
+	{
+		int objBucket = T.hashCode()%this.hashTabSize;
+		try
+		{
+			int index = this.hashTab[objBucket].containsPosition(T);
+			this.hashTab[objBucket].remove(index);
+			return true;
+		}
+		catch (NoSuchElementException t) {return false;}
+	}
 	
 }

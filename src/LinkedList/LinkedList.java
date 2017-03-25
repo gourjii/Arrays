@@ -1,21 +1,22 @@
-package LinkedList;
+package linkedList;
 
-import HashSet.HashSet;
-import java.util.Iterator;
+import java.util.NoSuchElementException;
+
+//import java.util.Iterator;
 
 public class LinkedList {//implements Iterable{ // https://docs.oracle.com/javase/8/docs/api/java/lang/Iterable.html
 
-	private Node firstNode;
-	private int size = 0;
-	private int hash = 0; // created only for first ever element and used only in HashSet
+	protected Node firstNode;
+	protected int size = 0; // add checks if index is above size etc.
 
+	public int getSize() {return size;}
+	
 	public boolean add(Object T)
 	{
 		if (this.firstNode == null)
 		{
 			this.firstNode = new Node(T, null);
 			this.size = 1;
-			this.hash = T.hashCode();
 			return true;
 		}
 		else
@@ -28,6 +29,7 @@ public class LinkedList {//implements Iterable{ // https://docs.oracle.com/javas
 	
 	public Object get(int index)
 	{
+		if (index > size - 1) {throw new NoSuchElementException();}
 		Node currentNode = firstNode;
 		for (int i = 0; i<index; i++)
 		{
@@ -46,7 +48,6 @@ public class LinkedList {//implements Iterable{ // https://docs.oracle.com/javas
 			while (currentNode.getNextNode() != null)
 			{
 				currentNode = currentNode.getNextNode();
-				//System.out.println(currentNode.getNodeObj());
 				if (currentNode.getNodeObj().equals(T)) {return true;}
 			}
 			return false;
@@ -55,31 +56,43 @@ public class LinkedList {//implements Iterable{ // https://docs.oracle.com/javas
 	
 	public Object remove (int index)
 	{
+		if (index > size - 1) {throw new NoSuchElementException();}
 		Object removableObj = null;
 		if (index == 0)
 		{
 			removableObj = this.firstNode.getNodeObj();
+			if (this.size == 1) 
+				{
+					this.firstNode = null;
+					this.size = 0;
+					return removableObj;
+				}
+			
 			this.firstNode = this.firstNode.getNextNode();
 			//any way to mark the object as OK to destroy?
 			size -= 1; 
 			return removableObj; 
 		}
-		else
+		Node currentNode = firstNode;
+		Node previousNode = null; 
+		for (int i = 0; i<index; i++)
+		{				
+			
+			previousNode = currentNode;
+			currentNode = currentNode.getNextNode();
+		}
+		removableObj = currentNode.getNodeObj();
+		if (currentNode.getNextNode() == null)
 		{
-			Node currentNode = firstNode;
-			Node previousNode = null; 
-			for (int i = 0; i<index; i++)
-			{				
-				
-				previousNode = currentNode;
-				currentNode = currentNode.getNextNode();
-			}
-			removableObj = currentNode.getNodeObj();
-			previousNode.setNextNode(currentNode.getNextNode()); //Deletion itself; what about last Node?
-			this.size -= 1;
+			previousNode.setNextNode(null);
+			size -= 1;
 			return removableObj; 
 		}
+		previousNode.setNextNode(currentNode.getNextNode()); //Deletion itself; what about last Node?
+		this.size -= 1;
+		return removableObj; 
 	}
+	
 	//	 Адвансед задание: сделать LinkedList Iterable.
 	
 
@@ -89,37 +102,4 @@ public class LinkedList {//implements Iterable{ // https://docs.oracle.com/javas
 		return a;
 	}*/
 	
-	public int getHash()
-	{
-		return this.hash;
-	}
-	
-	
-	
-	public static void main(String[] args) {
-		 
-		 LinkedList l = new LinkedList(); 
-		 l.add("obj1");
-		 l.add("obj2");
-		 l.add("obj3");
-		 l.add("obj4");
-		 
-		 System.out.println("size is " + l.size);
-		 System.out.println(l.get(3));
-		 System.out.println("True is " + l.contains("obj3"));
-		 System.out.println("removing " + l.remove(1));
-		 System.out.println("False is " + l.contains("obj3"));
-		 System.out.println("new size is " + l.size);
-		 
-		 System.out.println("---------HashSet--------");
-		 HashSet hashSet = new HashSet();
-		 hashSet.add("hash1");
-		 hashSet.add("hash2");
-		 hashSet.add("hash3");
-		 hashSet.add("hash4");
-		 System.out.println("False is " + hashSet.add("hash2"));
-		 l = (LinkedList) hashSet.firstListNode.getNodeObj();
-		 System.out.println(l.get(0));
-	 }
-	 
 }
