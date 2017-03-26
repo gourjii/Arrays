@@ -1,7 +1,9 @@
 package App;
 
 import hashSet.HashSet;
+import treeSet.StringType;
 import linkedList.LinkedList;
+import treeSet.TreeSet;
 
 public class ArraysApp {
 
@@ -34,7 +36,25 @@ public class ArraysApp {
 	}
 	
 	public static void main(String[] args) {	
-		ArraysApp.testLinkedList();
-		ArraysApp.testHashSet();
+		//ArraysApp.testLinkedList();
+		//ArraysApp.testHashSet();
+		
+		TreeSet tree = new TreeSet();
+		tree.add(new StringType("delta"));
+		tree.add(new StringType("xylophone"));
+		tree.add(new StringType("hotel"));
+		
+		
+		System.out.println(tree.root.getMoreNode().getLessNode());
+		
+		System.out.println("current root is " + tree.root.getNodeObj().getValue()
+				+ ", 2: " + tree.root.getMoreNode().getNodeObj().getValue()
+				+ " 3: " + tree.root.getMoreNode().getLessNode().getNodeObj().getValue()); 
+		//System.out.println("adding 2nd val: " + tree.add(text));
+		//text.setValue("delta");
+		//tree.add(text)
+		//System.out.println("added successfully");
+		//System.out.println("1: " + tree.root.getNodeObj());
+		//+ " 3: " + tree.root.getMoreNode().getLessNode().getNodeObj());
 	}
 }

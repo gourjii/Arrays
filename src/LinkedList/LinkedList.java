@@ -8,8 +8,8 @@ public class LinkedList {//implements Iterable{ // https://docs.oracle.com/javas
 
 	protected Node firstNode;
 	protected int size = 0; // add checks if index is above size etc.
-
-	public int getSize() {return size;}
+	
+	protected int getSize() {return size;}
 	
 	public boolean add(Object T)
 	{
