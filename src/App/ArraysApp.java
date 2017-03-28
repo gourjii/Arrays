@@ -35,26 +35,28 @@ public class ArraysApp {
 		System.out.println("False is " + hashSet.contains("hash3"));
 	}
 	
-	public static void main(String[] args) {	
-		//ArraysApp.testLinkedList();
-		//ArraysApp.testHashSet();
-		
+	public static void testTreeSet() //only for testing purposes
+	{
+		System.out.println("---------TreeSet--------");
+		StringType a;
 		TreeSet tree = new TreeSet();
-		tree.add(new StringType("delta"));
-		tree.add(new StringType("xylophone"));
-		tree.add(new StringType("hotel"));
+		tree.add(new StringType("delta")); //fails
+		tree.add(a = new StringType("xylophone")); //+
+		tree.add(new StringType("hotel")); //+
+		tree.add(new StringType("zulu")); //+
+		tree.add(new StringType("yankee")); 
+		tree.add(new StringType("echo")); 
+		tree.add(new StringType("zzz")); //+
 		
-		
-		System.out.println(tree.root.getMoreNode().getLessNode());
-		
-		System.out.println("current root is " + tree.root.getNodeObj().getValue()
-				+ ", 2: " + tree.root.getMoreNode().getNodeObj().getValue()
-				+ " 3: " + tree.root.getMoreNode().getLessNode().getNodeObj().getValue()); 
-		//System.out.println("adding 2nd val: " + tree.add(text));
-		//text.setValue("delta");
-		//tree.add(text)
-		//System.out.println("added successfully");
-		//System.out.println("1: " + tree.root.getNodeObj());
-		//+ " 3: " + tree.root.getMoreNode().getLessNode().getNodeObj());
+		tree.printTree();
+		tree.remove(a);
+		System.out.println("-------");
+		tree.printTree();
+	}
+	
+	public static void main(String[] args) {	
+		ArraysApp.testLinkedList();
+		ArraysApp.testHashSet();
+		ArraysApp.testTreeSet();
 	}
 }

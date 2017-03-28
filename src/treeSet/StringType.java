@@ -1,7 +1,7 @@
 package treeSet;
 
 public class StringType implements Comparable<StringType>{
-	String value;
+	private String value;
 
 	public StringType(String value) {
 		this.value = value;
